@@ -15,10 +15,20 @@ public class ProduitManager {
 
     private List<Produit> produits = new ArrayList<>();
 
+    public ProduitManager(){
+        System.out.println("Instanciation du ProduitManager");
+    }
+
+    @Autowired
+    private ProduitManager produitManager;
+
     @Autowired
     private WebPageManager webPageManager;
 
-    @Resource(name = "bitcoinServiceWithCache")
+    @Autowired
+    private ProduitRepository produitRepository;
+
+    @Autowired
     private BitcoinService bitcoinService;
 
   /*  public void setBitcoinService(BitcoinService bitcoinService) {
@@ -77,6 +87,7 @@ public class ProduitManager {
             produits.add(new Produit(elements[0], Double.parseDouble(elements[1])));
             nbProduits++;
         }
+        produitRepository.saveAll(produits);
         System.out.println("Ajout de " + nbProduits + " produits !");
     }
 
