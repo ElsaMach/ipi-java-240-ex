@@ -1,16 +1,34 @@
 package com.ipiecoles.java.java240;
 
 import javafx.application.Application;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Main {
+@Component
+@Profile("!test")
+public class Main implements CommandLineRunner {
 
-    public static void main(String[] args) throws IOException {
+    @Autowired
+    private ProduitManager pm;
+
+    @Resource(name = "bitcoinServiceWithoutCache")
+    private BitcoinService bitcoinServiceWithoutCache;
+
+    @Override
+    public void run(String... args)throws IOException {
+       /* System.out.println("Avant initialisation du contexte");
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+        System.out.println("Après initialisation du contexte");
+
+
         ProduitManager pm = ctx.getBean(ProduitManager.class);
 
         // BitcoinService bitcoinServiceWithCache = ctx.getBean("bitcoinServiceWithCache", BitcoinService.class);
@@ -23,7 +41,7 @@ public class Main {
         // pm.setWebPageManager(webPageManager);
 
         //bitcoinServiceWithCache.setWebPageManager(webPageManager);
-        //bitcoinServiceWithoutCache.setWebPageManager(webPageManager);
+        //bitcoinServiceWithoutCache.setWebPageManager(webPageManager);*/
 
         System.out.println("Bienvenue !");
         while (true) {
